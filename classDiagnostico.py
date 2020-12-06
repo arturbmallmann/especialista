@@ -1,11 +1,11 @@
 class Diagnostico():
     # metodo construtor
-    def __init__(self):
+    def __init__(self,nome_arq):
         self.pessoa = []
         # abre o arquivo db.txt em modo leitura e passa os dados para
         # uma lista de listas de str
         self.my_dict = dict()
-        arquivo = open('db.txt','r')
+        arquivo = open(nome_arq,'r')
         for s,r in [x.replace('\n','').split('-') for x in arquivo]: 
             if self.my_dict.get(r) == None:
                 self.my_dict.update({r:[s]})
@@ -60,8 +60,10 @@ class Diagnostico():
         resp = input(pergunta+': ')
         if resp == 's' or resp == 'S':
             self.excluiquemnaoe(caract)
+            self.excluiqueme("n_"+caract)
         elif resp == 'n' or resp == 'N':
             self.excluiqueme(caract)
+            #self.excluiquemnaoe("n_"+caract) negação nem sempre está inclusa, então acho responsável comentar essa linha
     def get_sintomas(self,para):
         return self.my_dict.get(para)
 """
