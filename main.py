@@ -9,14 +9,14 @@ qual = int(input("Qual programa deseja executar? 1..{}:\n{}".format(len(dbs),
                                                                     ))) -1
 se = Diagnostico(dbs[qual]+'_d.db')
 pergunta = Pergunta(dbs[qual]+'_p.db')
+print ("Estrutura dos dados:\n{}\n".format(se.my_dict))
 
 
 
 while se.probabilidade() != 100 and se.probabilidade() != 0 :
-    print (se.my_dict)
     string = pergunta.texto(se)
     se.pergunta(string[0],string[1])
-    print('probabilidade é %d' %(se.probabilidade()))
+    print('probabilidade é {} %'.format(se.probabilidade()))
     print(se.resultado)
     if se.probabilidade() == 100:
         print('O Diagnostico é: ',se.resultado[0])    

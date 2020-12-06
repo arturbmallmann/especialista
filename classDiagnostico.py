@@ -23,47 +23,32 @@ class Diagnostico():
     probabilidade = lambda self: int ((1/int(len(self.resultado)))*100) if len(self.resultado) > 0 else 0
 
     # verifica se diagnóstico pensado tem a caracteristica passada por parametro
-    #def busca(self, familiar, caract):    
-        #for i in range(len(self.db)):
-            #if familiar == self.db[i][1]:
-                #if self.db[i][0] == caract:
-                    #return True
-        #return False                
-    def busca(self, r,s):
-        return True if self.my_dict.get(r).count(s) > 0 else False
+    busca = lambda self,r,s: True if self.my_dict.get(r).count(s) > 0 else False
         
         
     # remove os diagnósticos que não possuem o atributo passado por parametro
     def excluiquemnaoe(self, atributo):
-        lista = []
-        count = 0
-        for i in range(len(self.resultado)):
-            if not self.busca(self.resultado[i], atributo):
-                lista.append(self.resultado[i])
-                count = count + 1
-        for i in range(count):
-            self.resultado.remove(lista[i])
+        for r in self.resultado:
+            if not self.busca(r, atributo):
+                self.resultado.remove(r)
     
     # remove os diagnosticos que possuem o atributo passado por parametro
     def excluiqueme(self, atributo):
-        lista = []
-        count = 0
-        for i in range(len(self.resultado)):
-            if self.busca(self.resultado[i], atributo):
-                lista.append(self.resultado[i])
-                count = count + 1
-        for i in range(count):
-            self.resultado.remove(lista[i])
+        for r in self.resultado:
+            if self.busca(r, atributo):
+                self.resultado.remove(r)
         
     def pergunta(self,pergunta,caract):
         print("Lista resultados: {}".format(self.resultado))
-        resp = input(pergunta+': ')
+        resp = input(pergunta+'(s,n,p): ')
         if resp == 's' or resp == 'S':
             self.excluiquemnaoe(caract)
             self.excluiqueme("n_"+caract)
         elif resp == 'n' or resp == 'N':
             self.excluiqueme(caract)
             #self.excluiquemnaoe("n_"+caract) negação nem sempre está inclusa, então acho responsável comentar essa linha
+        elif resp == 'p' or resp =='P':
+            print("pergunta pulada")
     def get_sintomas(self,para):
         return self.my_dict.get(para)
 """
